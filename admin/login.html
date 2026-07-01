@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FabLab Bremen - Admin Login</title>
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="css/login.css">
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/components/buttons.css">
+  <link rel="stylesheet" href="../css/components/inputs.css">
+
+</head>
+<body>
+
+  <main class="login-wrapper">
+    <div class="card login-card">
+      <header class="login-header">
+        <h2>FabLab Intern</h2>
+        <p>Bitte melde dich mit deinen Admin-Zugangsdaten an.</p>
+      </header>
+
+      <form id="login-form">
+        <div class="form-group">
+          <label for="email">E-Mail-Adresse</label>
+          <input type="email" id="email" required placeholder="name@fablab-bremen.org">
+        </div>
+
+        <div class="form-group">
+          <label for="password">Passwort</label>
+          <input type="password" id="password" required placeholder="••••••••">
+        </div>
+
+        <button type="submit" class="btn-primary btn-submit">Anmelden</button>
+      </form>
+
+      <div id="error-message" class="error-banner hidden"></div>
+    </div>
+  </main>
+
+  <script src="js/login.js" type="module"></script>
+</body>
+</html>

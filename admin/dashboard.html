@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FabLab Bremen - Dashboard</title>
+    <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="../css/components/buttons.css">
+  <link rel="stylesheet" href="../css/components/inputs.css">
+
+</head>
+<body class="dark-theme">
+
+  <nav class="admin-nav">
+    <div class="nav-brand">FabLab Admin-Panel</div>
+    <div class="nav-user-zone">
+      <span id="admin-name-display">Lade Profil...</span>
+      <button id="logout-btn" class="btn-text">Abmelden ↩</button>
+    </div>
+  </nav>
+
+  <main class="dashboard-container section-padding">
+    <header class="dashboard-header">
+      <h1 id="welcome-heading">Willkommen zurück!</h1>
+      <p class="subtitle">Hier ist die aktuelle Übersicht der Labor-Inhalte.</p>
+    </header>
+
+    <section class="metrics-grid">
+      <div class="metric-card">
+        <span class="metric-icon">🛠️</span>
+        <div class="metric-info">
+          <h3 id="count-workshops">-</h3>
+          <p>Aktive Workshops</p>
+        </div>
+      </div>
+      <div class="metric-card">
+        <span class="metric-icon">🚀</span>
+        <div class="metric-info">
+          <h3 id="count-projects">-</h3>
+          <p>Veröffentlichte Projekte</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="actions-grid">
+      <h2>Inhalte verwalten</h2>
+      <div class="cards-layout">
+        
+        <a href="workshops.html" class="action-card">
+          <div class="action-content">
+            <h3>Workshops steuern</h3>
+            <p>Neue Termine, Preise, Beschreibungen und Anmeldelinks für Kurse hinzufügen oder bearbeiten.</p>
+          </div>
+          <span class="action-arrow">Verwalten →</span>
+        </a>
+
+        <a href="projects.html" class="action-card">
+          <div class="action-content">
+            <h3>Projekte & MINTsteps</h3>
+            <p>Ergebnisse hochladen, Maker-Highlights auszeichnen und Dokumentationen hochladen.</p>
+          </div>
+          <span class="action-arrow">Verwalten →</span>
+        </a>
+
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="js/dashboard.js"></script>
+</body>
+</html>

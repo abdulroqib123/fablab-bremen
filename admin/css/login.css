@@ -1,0 +1,38 @@
+  .login-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        margin: 8px;
+    }
+
+    .login-card {
+        background: var(--bg-card);
+        border-radius: 8px;
+        padding: 24px;
+        min-width: 600px;
+    }
+
+    #login-form {
+        margin: 8px 0;
+    }
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin: 8px 0;
+}
+
+input {
+    padding: 16px 8px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-dark);
+    color: var(--text-main);
+}
+.btn-submit {
+    margin-top: 24px;
+    width: 100%;
+    padding: 16px;
+    border: none;
+}

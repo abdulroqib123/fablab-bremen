@@ -1,0 +1,142 @@
+import { supabase } from '../../js/supabase.js';
+
+let quill;
+let workshopId = null;
+let currentAdminName = "";
+let authorId = null;
+
+// Using native ES module top-level logic instead of wrapping in DOMContentLoaded
+initWorkshopPage();
+
+async function initWorkshopPage() {
+  // 1. Route Security Check
+  const { data: { session }, error: authErr } = await supabase.auth.getSession();
+  if (authErr || !session) {
+    window.location.href = 'login.html';
+    return;
+  }
+
+  // 2. Fetch Active Admin Profile Info
+  const { data: adminProfile } = await supabase
+    .from('admins')
+    .select('full_name, id')
+    .eq('id', session.user.id)
+    .single();
+
+  authorId = adminProfile.id;
+  currentAdminName = adminProfile ? adminProfile.full_name : session.user.email;
+  document.getElementById('admin-name').textContent = currentAdminName;
+
+  // 3. Initialize Quill Rich Text Engine
+  quill = new Quill("#editor-container", {
+    theme: "snow",
+    placeholder: "Legen Sie ein neuen Workshop an...",
+    modules: {
+      toolbar: [
+        [{ header: [1, 2, 3, 4, 5, 6, false] }],
+        ["bold", "italic", "underline", "link"],
+        [
+          { list: "ordered" },
+          { list: "bullet" },
+          { list: "check" },
+          { align: [] },
+        ],
+        ["image"],
+        ["code-block"],
+      ],
+    },
+  });
+
+  // 4. URL Routing Check: Are we Creating or Editing?
+  const urlParams = new URLSearchParams(window.location.search);
+  workshopId = urlParams.get('id');
+
+  if (workshopId) {
+    document.getElementById('page-title').textContent = "Workshop bearbeiten";
+    document.getElementById('submit-btn').textContent = "Änderungen speichern";
+    loadExistingWorkshopData(workshopId);
+  } else {
+    document.getElementById('audit-badge').textContent = `Erstellt von: ${currentAdminName}`;
+  }
+
+  // 5. Form Binding
+  document.getElementById('workshop-form').addEventListener('submit', handleFormSubmit);
+}
+
+async function loadExistingWorkshopData(id) {
+  const { data: ws, error } = await supabase
+    .from('workshops')
+    .select('*')
+    .eq('id', id)
+    .single();
+
+  if (error || !ws) {
+    alert("Fehler beim Laden des Workshops.");
+    window.location.href = 'dashboard.html';
+    return;
+  }
+
+  // Re-populate standard field entries
+  document.getElementById('ws-title').value = ws.title || '';
+  document.getElementById('ws-price').value = ws.price || '';
+  document.getElementById('ws-reg-link').value = ws.registration_link || '';
+  
+  if (ws.event_date) {
+    document.getElementById('ws-date').value = ws.event_date.substring(0, 16);
+  }
+
+  // Distribute image URLs back to inputs
+  if (ws.image_urls && Array.isArray(ws.image_urls)) {
+    const imgInputs = document.querySelectorAll('.ws-img-input');
+    ws.image_urls.forEach((url, index) => {
+      if (imgInputs[index]) imgInputs[index].value = url;
+    });
+  }
+
+  // Hydrate Quill rich text content
+  quill.clipboard.dangerouslyPasteHTML(ws.content || '');
+  document.getElementById('audit-badge').textContent = `Zuletzt aktualisiert von: ${currentAdminName}`;
+}
+
+async function handleFormSubmit(e) {
+  e.preventDefault();
+
+  const imgElements = document.querySelectorAll('.ws-img-input');
+  const imageUrlsArray = Array.from(imgElements)
+    .map(input => input.value.trim())
+    .filter(url => url !== "");
+
+  const workshopPayload = {
+    title: document.getElementById('ws-title').value.trim(),
+    price: document.getElementById('ws-price').value.trim() || 'Kostenlos',
+    event_date: new Date(document.getElementById('ws-date').value).toISOString(),
+    registration_link: document.getElementById('ws-reg-link').value.trim(),
+    image_urls: imageUrlsArray,
+    posted_by: authorId,
+    content: quill.getSemanticHTML(), // Captures raw valid HTML blocks cleanly
+  };
+
+  let responseError;
+
+  if (workshopId) {
+    // Mode: Update existing database row
+    const { error } = await supabase
+      .from('workshops')
+      .update(workshopPayload)
+      .eq('id', workshopId);
+    responseError = error;
+  } else {
+    // Mode: Insert fresh database row
+    const { error } = await supabase
+      .from('workshops')
+      .insert([workshopPayload]);
+    responseError = error;
+  }
+
+  if (responseError) {
+    alert(`Fehler beim Speichern: ${responseError.message}`);
+  } else {
+    alert("Workshop erfolgreich gespeichert!");
+    window.location.href = 'workshops.html';
+  }
+}

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FabLab Bremen - Workshop-Verwaltung</title>
+  
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components/buttons.css">
+  <link rel="stylesheet" href="../css/components/inputs.css">
+  <link rel="stylesheet" href="css/main.css">
+  
+  <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet">
+</head>
+<body class="dark-theme">
+
+  <nav class="admin-nav">
+    <div class="nav-brand">
+      <a href="dashboard.html" class="back-link">← Zurück zum Dashboard</a>
+    </div>
+    <div class="nav-user-zone"><span id="admin-name">Admin</span></div>
+  </nav>
+
+  <main class="form-container section-padding">
+    <header class="form-header">
+      <h1 id="page-title">Neuen Workshop anlegen</h1>
+      <p id="audit-badge" class="subtitle">Erstellt von: Wird geladen...</p>
+    </header>
+    
+    <form id="workshop-form" class="admin-form-card">
+      <div class="input-container">
+      <div class="form-group">
+        <label for="ws-title">Workshop Titel</label>
+        <input type="text" id="ws-title" required placeholder="z.B. 3D-Druck für Einsteiger">
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="ws-price">Preis (Leer lassen für 'Kostenlos')</label>
+          <input type="text" id="ws-price" placeholder="Kostenlos">
+        </div>
+        <div class="form-group">
+          <label for="ws-date">Datum & Uhrzeit</label>
+          <input type="datetime-local" id="ws-date" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="ws-reg-link">Anmeldelink (Externe Form-URL - Optional)</label>
+        <input type="url" id="ws-reg-link" placeholder="https://anmeldung.fablab-bremen.org/...">
+      </div>
+
+      <div class="form-group image-uploads-group">
+        <label>Bilder (Max. 3 URLs)</label>
+        <input type="url" class="ws-img-input" placeholder="Bild-URL 1 (Hauptbild)">
+        <input type="url" class="ws-img-input" placeholder="Bild-URL 2 (Optional)">
+        <input type="url" class="ws-img-input" placeholder="Bild-URL 3 (Optional)">
+      </div>
+
+
+      </div>
+
+      <div class="editor-container">
+
+        <div class="form-group HTML-editor-zone">
+          <label>Beschreibung / Inhalte</label>
+          <div id="editor-container" style="height: 300px; background: #1f2833; color: #fff;"></div>
+        </div>
+        
+        <div class="form-actions">
+          <button type="submit" id="submit-btn" class="btn-primary">Workshop veröffentlichen</button>
+        </div>
+      </div>
+    </form>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+  
+  <script type="module" src="js/workshops.js"></script>
+</body>
+</html>
