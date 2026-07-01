@@ -31,23 +31,29 @@ async function initProjectPage() {
   currentAdminName = adminProfile ? adminProfile.full_name : session.user.email;
   document.getElementById("admin-name").textContent = currentAdminName;
 
-  // 3. Initialize Quill Rich Text Engine
+  // 3. Initialize Quill Rich Text Engine with Custom Image Interceptor
   quill = new Quill("#editor-container", {
     theme: "snow",
     placeholder: "Legen Sie ein neues Projekt an...", // Typo fix
     modules: {
-      toolbar: [
-        [{ header: [1, 2, 3, 4, 5, 6, false] }],
-        ["bold", "italic", "underline", "link"],
-        [
-          { list: "ordered" },
-          { list: "bullet" },
-          { list: "check" },
-          { align: [] },
+      toolbar: {
+        container: [
+          [{ header: [1, 2, 3, 4, 5, 6, false] }],
+          ["bold", "italic", "underline", "link"],
+          [
+            { list: "ordered" },
+            { list: "bullet" },
+            { list: "check" },
+            { align: [] },
+          ],
+          ["image"],
+          ["code-block"],
         ],
-        ["image"],
-        ["code-block"],
-      ],
+        handlers: {
+          // Directs image icon clicks through our storage upload system instead of Base64
+          image: handleQuillImageUpload,
+        },
+      },
     },
   });
 
@@ -68,6 +74,89 @@ async function initProjectPage() {
   document
     .getElementById("project-form")
     .addEventListener("submit", handleFormSubmit);
+
+  // 6. Bind Quick Converters for the 3 Project Image URL input fields
+  setupQuickImageConverters();
+}
+
+/**
+ * Shared Core Utility API Function
+ * Handles streaming file assets straight up into your public bucket
+ */
+async function uploadFileToSupabase(file) {
+  const fileExt = file.name.split(".").pop();
+  // Create safe random identifier format to prevent overlap overwrites
+  const fileName = `${Date.now()}-${Math.random().toString(36).substring(2, 7)}.${fileExt}`;
+  const filePath = `uploads/${fileName}`;
+
+  const { data, error } = await supabase.storage
+    .from("projects-media")
+    .upload(filePath, file);
+
+  if (error) throw error;
+
+  // Pull back the public secure CDN address line
+  const {
+    data: { publicUrl },
+  } = supabase.storage.from("projects-media").getPublicUrl(filePath);
+
+  return publicUrl;
+}
+
+/**
+ * Automates Converting Files to Links right inside the project text inputs
+ */
+function setupQuickImageConverters() {
+  document.querySelectorAll(".quick-converter").forEach((uploader) => {
+    uploader.addEventListener("change", async (event) => {
+      const file = event.target.files[0];
+      const targetInputId = event.target.getAttribute("data-target");
+      const targetInput = document.getElementById(targetInputId);
+
+      if (!file) return;
+
+      targetInput.value = "Hochladen... Bitte warten...";
+      targetInput.disabled = true;
+
+      try {
+        const publicUrl = await uploadFileToSupabase(file);
+        targetInput.value = publicUrl;
+      } catch (err) {
+        console.error("Upload failed:", err);
+        targetInput.value = "";
+        alert("Fehler beim Konvertieren des Bildes.");
+      } finally {
+        targetInput.disabled = false;
+      }
+    });
+  });
+}
+
+/**
+ * Intercepts Quill Toolbar Uploads to keep the text blocks light and clean
+ */
+async function handleQuillImageUpload() {
+  const input = document.createElement("input");
+  input.setAttribute("type", "file");
+  input.setAttribute("accept", "image/*");
+  input.click();
+
+  input.onchange = async () => {
+    const file = input.files[0];
+    if (!file) return;
+
+    try {
+      const publicUrl = await uploadFileToSupabase(file);
+
+      // Target text insert point index and paste the string URL tag element directly
+      const range = quill.getSelection(true);
+      quill.insertEmbed(range.index, "image", publicUrl);
+      quill.setSelection(range.index + 1);
+    } catch (err) {
+      console.error("Quill media sync error:", err);
+      alert("Editor-Bild Upload fehlgeschlagen.");
+    }
+  };
 }
 
 async function loadExistingWorkshopData(id) {
@@ -79,7 +168,7 @@ async function loadExistingWorkshopData(id) {
 
   if (error || !pj) {
     alert("Fehler beim Laden des Projekts.");
-    window.location.href = "dashboard.html";
+    window.location.href = "projects.html";
     return;
   }
 

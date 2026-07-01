@@ -53,11 +53,29 @@
       </div>
 
       <div class="form-group image-uploads-group">
-        <label>Bilder (Max. 3 URLs)</label>
-        <input type="url" class="pj-img-input" placeholder="Bild-URL 1 (Hauptbild)">
-        <input type="url" class="pj-img-input" placeholder="Bild-URL 2 (Optional)">
-        <input type="url" class="pj-img-input" placeholder="Bild-URL 3 (Optional)">
-      </div>
+  <label>Bilder (Max. 3 URLs)</label>
+  
+  <div class="img-input-container">
+    <input type="url" class="pj-img-input" id="img-url-1" placeholder="Bild-URL 1 (Hauptbild)">
+    <label class="quick-upload-btn">
+      📎 Upload <input type="file" class="quick-converter" data-target="img-url-1" accept="image/*" style="display: none;">
+    </label>
+  </div>
+
+  <div class="img-input-container">
+    <input type="url" class="pj-img-input" id="img-url-2" placeholder="Bild-URL 2 (Optional)">
+    <label class="quick-upload-btn">
+      📎 Upload <input type="file" class="quick-converter" data-target="img-url-2" accept="image/*" style="display: none;">
+    </label>
+  </div>
+
+  <div class="img-input-container">
+    <input type="url" class="pj-img-input" id="img-url-3" placeholder="Bild-URL 3 (Optional)">
+    <label class="quick-upload-btn">
+      📎 Upload <input type="file" class="quick-converter" data-target="img-url-3" accept="image/*" style="display: none;">
+    </label>
+  </div>
+</div>
 
 
       </div>

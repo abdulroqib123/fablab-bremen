@@ -92,7 +92,7 @@
 .section {
   margin: 8px 0;
   padding: 24px 16px;
-  background: #070709;
+  background: var(--bg-main);
 }
 .section h3 {
     margin: 24px 0 0;
@@ -181,5 +181,5 @@ h3 {
 .source-credits p {
   margin: 0;
   font-size: 0.85rem;
-  color: #8f9aa6; /* De-emphasized secondary text */
+  color: var(--text-muted); /* De-emphasized secondary text */
 }
