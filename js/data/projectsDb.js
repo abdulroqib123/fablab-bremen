@@ -18,3 +18,14 @@ export async function getprojectsByCount(limit) {
 
   return projects;
 }
+
+export async function getMintstepsProjects() {
+    let { data: projects, error } = await supabase
+      .from("projects")
+      .select("*")
+      .eq("is_mintsteps", true)
+
+    if (error) return console.log(error);
+
+    return projects;
+}
