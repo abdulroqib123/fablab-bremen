@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta name="robots" content="noindex, nofollow">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FabLab Bremen - Maschinenverwaltung</title>
+  
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/components/buttons.css">
+    <link rel="stylesheet" href="../css/components/inputs.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+    <nav class="admin-nav">
+        <div class="nav-brand">
+            <a href="dashboard.html" class="back-link">← Zurück zum Dashboard</a>
+        </div>
+        <div class="nav-user-zone"><span id="admin-name">Admin</span></div>
+    </nav>
+
+    <main class="dashboard-container">
+        <header class="form-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px;">
+            <div>
+                <h1>Maschinen verwalten</h1>
+                <p class="subtitle">Bestehende Geräte bearbeiten oder aus dem System entfernen.</p>
+            </div>
+            <a href="machine-form.html" class="action-arrow" style="margin: 0; padding: 10px 16px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 6px; text-decoration: none;">
+                ＋ Neue Maschine
+            </a>
+        </header>
+
+        <section id="machines-list-container">
+            <div style="padding: 24px; color: var(--text-muted);">Lade aktuelle Maschinen...</div>
+        </section>
+    </main>
+
+    <script type="module" src="js/app.js"></script>
+    <script type="module" src="js/machines-list.js"></script>
+</body>
+</html>

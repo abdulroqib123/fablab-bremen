@@ -3,7 +3,7 @@ import { getProjectById } from "./data/projectsDb.js";
 const params = new URLSearchParams(window.location.search);
 const projectId = params.get("pj");
 
-async function initWorkshop() {
+async function initProject() {
 if(!projectId) return window.location.href = "projekte.html";
 
     const projectName = document.getElementById("projectName");
@@ -14,4 +14,4 @@ if(!projectId) return window.location.href = "projekte.html";
     projectName.textContent = projectData.title;
     projectContent.innerHTML = projectData.content;
 }
-await initWorkshop();
+await initProject();

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>design. make. learn. share.</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/cards.css">
+  <link rel="stylesheet" href="css/components/buttons.css">
+  <link rel="stylesheet" href="css/components/inputs.css">
+
+  <style>
+    #projectName {
+font-size: clamp(1rem, 6vw, 2rem);
+    }
+        img {
+            margin: 4px 0;
+        aspect-ratio: 3 / 2;
+        max-width: 100%;
+    }
+    /* Select any element that contains an <img> inside */
+p:has(img) {
+    width: fit-content;
+    display: flex;
+flex-direction: column;
+justify-content: center;
+margin: 16px 0;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+  </style>
+</head>
+<body>
+
+  <header class="main-header">
+    <div class="header-container">
+      <div class="logo-area">
+        <span class="logo-fab">Fab</span><span class="logo-lab">Lab</span>
+        <span class="logo-sub">Bremen e.V.</span>
+      </div>
+      
+      <button class="menu-toggle" aria-label="Toggle Navigation">☰</button>
+      
+    <nav class="nav-menu">
+        <!--1. Home (Single Link)-->
+          <a href="index">Start</a>
+
+  <!-- 2. Die Idee (Single Link) -->
+  <a href="idee">Die Idee</a>
+
+  <!-- 3. Projekte (Single Link) -->
+  <a href="projekte">Projekte</a>
+
+  <!-- 4. MINTsteps (Dropdown - 1 Item) -->
+  <div class="dropdown">
+    <a href="mint-steps" class="dropdown-trigger">MINTsteps</a>
+    <div class="sub-menu">
+      <a href="mintsteps-projekte.html">MINTsteps Projekte</a>
+    </div>
+  </div>
+
+  <!-- 5. Workshops (Single Link) -->
+  <a href="workshops">Workshops</a>
+
+  <!-- 6. Die Werkstatt (Dropdown - Reorganized) -->
+   <div class="dropdown">
+    <a href="werkstatt" class="dropdown-trigger">Die Werkstatt</a>
+    <div class="sub-menu">
+      <!-- High-level workshop sections -->
+      <a href="maschinen">Alle Maschinen & Werkzeuge</a>
+      
+      <!-- Spatial Zones grouped logically together -->
+      <hr class="dropdown-divider">
+      <a href="elektronik-ecke">Elektrotechnik Ecke</a>
+      <a href="werkbänke">Werkbänke & Handwerk</a>
+    </div>
+  </div>
+
+  <!-- 7. Mitglied werden (Dropdown - 1 Item) -->
+  <div class="dropdown">
+    <a href="mitglied-werden" class="dropdown-trigger btn-nav">Mitglied werden</a>
+    <div class="sub-menu">
+      <a href="mitglied-werden#satzung">Satzung (e.V.)</a>
+    </div>
+  </div>
+
+  <!-- 8. Spenden (Single Link Button) -->
+  <a href="spenden" class="btn-nav btn-alt">Spenden</a>
+</nav>
+
+    </div>
+  </header>
+
+  <div class="hero-img-container">
+    <img src="https://fablab-bremen.org/wp-content/uploads/2025/08/Fablabheader4.jpg" alt="" class="hero-img">
+
+<div class="hero-actions-container">
+<!-- Search -->
+<button type="button" class="btn-primary btn-circle">
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="20" height="20" viewBox="0 0 24 24"
+     fill="none" stroke="currentColor" stroke-width="2"
+     stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="11" cy="11" r="6" />
+  <line x1="16" y1="16" x2="20" y2="20" />
+</svg>
+</button>
+
+<!-- Notifications -->
+<button type="button" class="btn-primary btn-circle">
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="20" height="20" viewBox="0 0 24 24"
+     fill="none" stroke="currentColor" stroke-width="2"
+     stroke-linecap="round" stroke-linejoin="round">
+  <path d="M18 15V11a6 6 0 10-12 0v4l-2 2h16l-2-2z"/>
+  <path d="M13.73 21a2 2 0 01-3.46 0"/>
+</svg>
+</button>
+
+<!-- Theme toggle -->
+<button type="button" id="theme-toggle" class="btn-primary btn-circle">
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="20" height="20" viewBox="0 0 24 24"
+     fill="none" stroke="currentColor" stroke-width="2"
+     stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="12" cy="12" r="5"/>
+  <line x1="12" y1="1" x2="12" y2="3"/>
+  <line x1="12" y1="21" x2="12" y2="23"/>
+  <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+  <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+  <line x1="1" y1="12" x2="3" y2="12"/>
+  <line x1="21" y1="12" x2="23" y2="12"/>
+  <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+  <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+</svg>
+</button>
+</div>
+
+
+  </div>
+
+  <section class="about-section section">
+  <div class="section-container">
+    <header class="section-header">
+      <h2 id="machineName">Maschine</h2>
+      <a href="maschinen.html" class="section-header-link">Alle Maschinen</a>
+    </header>
+    
+    <article id="machineContent" class="card section">
+      
+    </article>
+  </div>
+</section>
+
+  
+  <section id="location-and-archive-picker" class="location-and-archive-picker-section section">
+    <div class="section-container">
+  <div class="archive-widget">
+    <label for="archive-select">Archiv</label>
+    <div class="select-wrapper">
+      <select id="archive-select">
+        <option value="">Jahr auswählen</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="open-lab-day card">
+    <h2>KOMMT
+      ZUM OPEN LAB DAY!</h2>
+<p>Ihr wollt eigene Projekte realisieren und unsere Maschinen nutzen? Ihr braucht Unterstützung oder wollt euch austauschen?</p>
+
+<p>Das FabLab steht der Öffentlichkeit wie folgt zur Verfügung:</p>
+<div class="open-day-dates">
+<strong>MONTAGS 18:00 – 21:00 Uhr</strong>
+<strong>DONNERSTAGS 15:00 – 17:00 Uhr</strong>
+</div>
+<p>Addresse: <a href="https://maps.google.com/?q=FabLab+Bremen+e.V.,+An+der+Weide+50a,+28195+Bremen" target="_blank" rel="noopener">An der Weide 50a, Im Postamt 5, 28195 Bremen</a></p>
+<p>Es kann gemeinsam modelliert, gedruckt, gecuttet und diskutiert werden.</p>
+
+<div class="img-container">
+  <img src="https://fablab-bremen.org/wp-content/uploads/2024/10/Fablabunten-768x535.jpg" alt="open day image">
+</div>
+</div>
+
+
+<div class="location-direction card">
+  <h2>Der Weg zu uns</h2>
+  <p>Das FabLab befindet sich in der 1. Etage des alten Postamts neben dem Bremer Hauptbahnhof, gegenüber vom Eingang des McFit.</p>
+
+<p>
+  Unsere Adresse ist <b><a href="https://maps.google.com/?q=FabLab+Bremen+e.V.,+An+der+Weide+50a,+28195+Bremen" target="_blank" rel="noopener">An der Weide 50a, 28195 Bremen</a></b>. 
+  Per Mail erreicht man uns unter <b><a href="mailto:info@fablab-bremen.org">info@fablab-bremen.org</a></b>. 
+  Telefon haben wir auch: <b><a href="tel:+4942140893624">0421/40893624</a></b> (Anrufbeantworter) | 
+  <b><a href="tel:+4942169679370">0421/69679370</a></b> (direkt im Lab).
+</p>
+
+<h3>Anfahrt mit der Straßenbahn:
+</h3>
+<p>
+An der Haltestelle Hauptbahnhof aussteigen, über die Straße rechts am Postamt entlang bis zum Eingang an der Pförtnerloge.</p>
+
+<h3>Anfahrt mit dem Auto:
+</h3>
+<p>Die optimale Parkmöglichkeit ist der Parkplatz des Edeka unten im Postamt (es können Parkgebühren anfallen).</p>
+
+<h3>Im Postamt:
+</h3>
+<p>Im Treppenhaus „Kern 1“ (McFit, Sportgarten...) in den 1. Stock gehen, gegenüber von McFit die Tür rein (der Flur ist meistens dunkel) und dann rechts durch die Tür zum Lab (ein Fahrstuhl ist vorhanden)</p>
+
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2396.616496491023!2d8.813599876715353!3d53.081162172213595!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47b1280deead11c1%3A0x9bf86da267170104!2sFabLab%20Bremen%20e.%20V.!5e0!3m2!1sen!2sde!4v1782829696807!5m2!1sen!2sde" width="100%" height="450" style="border:0; border-radius: 8px;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+</div>
+</div>
+  </section>
+
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <p>&copy; All rights reserved | FabLab</p>
+
+      <div class="footer-links">
+        <a href="datenschutzerklaerung">Datenschutzerklärung</a>
+        <a href="impressum">Impressum</a>
+      </div>
+    </div>
+  </footer>
+  <script src="js/app.js" type="module" defer></script>
+  <script type="module" src="js/maschine.js"></script>
+  <script src="js/nav.js" type="module" defer></script>
+</body>
+</html>

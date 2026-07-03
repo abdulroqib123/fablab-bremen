@@ -47,8 +47,8 @@ async function renderProjectsTable() {
 
   // Build rows dynamically inside our clean dark-mode variables
   let htmlMarkup = projects
-    .map((ws) => {
-      const formattedDate = new Date(ws.event_date).toLocaleDateString(
+    .map((pj) => {
+      const formattedDate = new Date(pj.event_date).toLocaleDateString(
         "de-DE",
         {
           day: "2-digit",
@@ -62,12 +62,12 @@ async function renderProjectsTable() {
       return `
       <div class="list-row" style="display: flex; justify-content: space-between; align-items: center; padding: 16px 24px; border-bottom: 1px solid var(--border-color);">
         <div style="flex: 2;">
-          <h4 style="margin: 0 0 4px 0; color: var(--text-main); font-size: 1.1rem;">${ws.title}</h4>
-          <span style="font-size: 0.85rem; color: var(--text-muted);">Termin: ${formattedDate} | Von: ${ws.author?.full_name || "Unbekannt"}</span>
+          <h4 style="margin: 0 0 4px 0; color: var(--text-main); font-size: 1.1rem;">${pj.title}</h4>
+          <span style="font-size: 0.85rem; color: var(--text-muted);">Termin: ${formattedDate} | Von: ${pj.author?.full_name || "Unbekannt"}</span>
         </div>
         <div style="display: flex; gap: 16px;">
-          <a href="project-form.html?id=${ws.id}" style="color: var(--accent-primary); text-decoration: none; font-size: 0.95rem;">Bearbeiten ✏️</a>
-          <button class="delete-btn" data-id="${ws.id}" style="background: none; border: none; color: var(--status-warn); cursor: pointer; font-size: 0.95rem; font-weight: 500;">Löschen 🗑️</button>
+          <a href="project-form.html?id=${pj.id}" style="color: var(--accent-primary); text-decoration: none; font-size: 0.95rem;">Bearbeiten ✏️</a>
+          <button class="delete-btn" data-id="${pj.id}" style="background: none; border: none; color: var(--status-warn); cursor: pointer; font-size: 0.95rem; font-weight: 500;">Löschen 🗑️</button>
         </div>
       </div>
     `;

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta name="robots" content="noindex, nofollow">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FabLab Bremen - Maschinenverwaltung</title>
+  
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components/buttons.css">
+  <link rel="stylesheet" href="../css/components/inputs.css">
+  <link rel="stylesheet" href="css/main.css">
+  
+  <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet">
+</head>
+<body class="dark-theme">
+
+  <nav class="admin-nav">
+    <div class="nav-brand">
+      <a href="dashboard.html" class="back-link">← Zurück zum Dashboard</a>
+    </div>
+    <div class="nav-user-zone"><span id="admin-name">Admin</span></div>
+  </nav>
+
+  <main class="form-container section-padding">
+    <header class="form-header">
+      <h1 id="page-title">Neue Maschine anlegen</h1>
+      <p id="audit-badge" class="subtitle">Erstellt von: Wird geladen...</p>
+    </header>
+    
+    <form id="machine-form" class="admin-form-card">
+      <div class="input-container">
+
+        <!-- MACHINE NAME -->
+        <div class="form-group">
+          <label for="mc-title">Maschinenname</label>
+          <input
+            type="text"
+            id="mc-title"
+            required
+            placeholder="z.B. Prusa i3 MK3S+"
+          >
+        </div>
+
+        <!-- SHORT DESCRIPTION -->
+        <div class="form-group">
+          <label for="mc-description">Kurzbeschreibung</label>
+          <textarea
+            id="mc-description"
+            rows="3"
+            placeholder="Kurze Beschreibung der Maschine (z.B. Einsatzzweck, Besonderheiten)"
+          ></textarea>
+        </div>
+
+        <!-- IMAGES -->
+        <div class="form-group image-uploads-group">
+          <label>Bilder (Max. 3 URLs)</label>
+          
+          <div class="img-input-container">
+            <input
+              type="url"
+              class="mc-img-input"
+              id="img-url-1"
+              placeholder="Bild-URL 1 (Hauptbild)"
+            >
+            <label class="quick-upload-btn">
+              📎 Upload
+              <input
+                type="file"
+                class="quick-converter"
+                data-target="img-url-1"
+                accept="image/*"
+                style="display: none;"
+              >
+            </label>
+          </div>
+
+          <div class="img-input-container">
+            <input
+              type="url"
+              class="mc-img-input"
+              id="img-url-2"
+              placeholder="Bild-URL 2 (Optional)"
+            >
+            <label class="quick-upload-btn">
+              📎 Upload
+              <input
+                type="file"
+                class="quick-converter"
+                data-target="img-url-2"
+                accept="image/*"
+                style="display: none;"
+              >
+            </label>
+          </div>
+
+          <div class="img-input-container">
+            <input
+              type="url"
+              class="mc-img-input"
+              id="img-url-3"
+              placeholder="Bild-URL 3 (Optional)"
+            >
+            <label class="quick-upload-btn">
+              📎 Upload
+              <input
+                type="file"
+                class="quick-converter"
+                data-target="img-url-3"
+                accept="image/*"
+                style="display: none;"
+              >
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- CONTENT EDITOR -->
+      <div class="editor-container">
+        <div class="form-group HTML-editor-zone">
+          <label>Beschreibung / Inhalte (Detailansicht)</label>
+          <div
+            id="editor-container"
+            style="height: 300px; background: #1f2833; color: #fff;"
+          ></div>
+        </div>
+        
+        <div class="form-actions">
+          <button type="submit" id="submit-btn" class="btn-primary">
+            Maschine speichern
+          </button>
+        </div>
+      </div>
+    </form>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+  
+  <script type="module" src="js/app.js"></script>
+  <script type="module" src="js/machines.js"></script>
+</body>
+</html>

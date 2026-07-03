@@ -131,7 +131,7 @@
   font-size: 0.95rem;
   margin: 0;
 }
-input {
+input, textarea {
     padding: 16px 8px;
     border-radius: 8px;
     border: 1px solid var(--border-color);

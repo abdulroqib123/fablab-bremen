@@ -6,8 +6,12 @@ if (savedTheme === "light") {
   document.body.classList.add("light");
 }
 
-// Toggle theme
-themeToggleBtn.addEventListener("click", () => {
-  const isLight = document.body.classList.toggle("light");
+if(themeToggleBtn) {
+  
+  // Toggle theme
+  themeToggleBtn.addEventListener("click", () => {
+    const isLight = document.body.classList.toggle("light");
   localStorage.setItem("theme", isLight ? "light" : "dark");
 });
+
+};
