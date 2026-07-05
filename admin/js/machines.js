@@ -1,4 +1,5 @@
 import { supabase } from "../../js/supabase.js";
+import { convertToWebP } from "../../js/utils/fileToWebp.js";
 
 let quill;
 let machineId = null;
@@ -77,21 +78,27 @@ async function initMachinePage() {
    FILE UPLOAD → PUBLIC URL
 ------------------------------ */
 async function uploadFileToSupabase(file) {
-  const ext = file.name.split(".").pop();
-  const fileName = `${Date.now()}-${Math.random()
-    .toString(36)
-    .substring(2, 7)}.${ext}`;
+    // Convert to WebP first
+  const webpBlob = await convertToWebP(file);
+
+    // Preserve original filename (without extension)
+    const baseName = file.name.replace(/\.[^/.]+$/, "");
+
+      // Create final WebP filename
+  const fileName = `${baseName}-${Date.now()}.webp`;
   const filePath = `machines/${fileName}`;
 
-  const { error } = await supabase.storage
-    .from("projects-media")
-    .upload(filePath, file);
+   const { error } = await supabase.storage
+     .from("machines-media")
+     .upload(filePath, webpBlob, {
+       contentType: "image/webp",
+     });
 
   if (error) throw error;
 
   const {
     data: { publicUrl },
-  } = supabase.storage.from("projects-media").getPublicUrl(filePath);
+  } = supabase.storage.from("machines-media").getPublicUrl(filePath);
 
   return publicUrl;
 }

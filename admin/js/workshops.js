@@ -1,4 +1,5 @@
 import { supabase } from "../../js/supabase.js";
+import { convertToWebP } from "../../js/utils/fileToWebp.js";
 
 let quill;
 let workshopId = null;
@@ -84,18 +85,24 @@ async function initWorkshopPage() {
  * Handles streaming file assets straight up into your public bucket
  */
 async function uploadFileToSupabase(file) {
-  const fileExt = file.name.split(".").pop();
-  // Create safe random identifier format to prevent overlap overwrites
-  const fileName = `${Date.now()}-${Math.random().toString(36).substring(2, 7)}.${fileExt}`;
-  const filePath = `uploads/${fileName}`;
+    // Convert to WebP first
+  const webpBlob = await convertToWebP(file);
 
-  const { data, error } = await supabase.storage
-    .from("workshop-media")
-    .upload(filePath, file);
+    // Preserve original filename (without extension)
+    const baseName = file.name.replace(/\.[^/.]+$/, "");
+
+      // Create final WebP filename
+  const fileName = `${baseName}-${Date.now()}.webp`;
+  const filePath = `workshops/${fileName}`;
+
+   const { error } = await supabase.storage
+     .from("workshop-media")
+     .upload(filePath, webpBlob, {
+       contentType: "image/webp",
+     });
 
   if (error) throw error;
 
-  // Pull back the public secure CDN address line
   const {
     data: { publicUrl },
   } = supabase.storage.from("workshop-media").getPublicUrl(filePath);
