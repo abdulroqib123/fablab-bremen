@@ -124,9 +124,6 @@ body {
   padding: 24px 16px;
   background: var(--bg-main);
 }
-.section h3 {
-    margin: 24px 0 0;
-}
 .section-container {
   max-width: 1200px;
   margin: 0 auto;
