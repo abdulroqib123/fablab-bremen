@@ -22,6 +22,27 @@
 <link rel="preconnect" href="https://supabase.com" crossorigin>
 <link rel="dns-prefetch" href="https://supabase.com">
 
+<style>
+  #satzung {
+    padding-top: 50px;
+    animation: highlightSection 0.5s ease;
+    animation-delay: 1s;
+  }
+
+  @keyframes highlightSection {
+    0%, 25% {
+      background-color: var(--text-muted);    }
+    50%, 75% {
+      background-color: var(--bg-card);    }
+    75%, 100% {
+      background-color: var(--text-muted);
+    }
+    100% {
+      background-color: var(--bg-card);
+    }
+
+  }
+</style>
 </head>
 <body>
 
