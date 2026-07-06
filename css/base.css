@@ -26,7 +26,7 @@
 body.light {
   --bg-dark: #f8f9fa;                     /* Soft, clean base background */
   --bg-main: #ffffff;                     /* Crisp white for content areas */
-  --bg-header: rgba(248, 249, 250, 0.85); /* Clean glass-effect header */
+  --bg-header: #f8f9fad9; /* Clean glass-effect header */
 
   --bg-card: #f1f3f5;                     /* Light gray card surface for clear separation */
   --border-color: #e2e8f0;                /* Subtle, modern divider line */
@@ -34,7 +34,7 @@ body.light {
 
   /* High-contrast typography */
   --text-main: #0f172a;                   /* Deep off-black for excellent readability */
-  --text-muted: #64748b;                  /* Distinct slate-gray for secondary text */
+  --text-muted: #677383;                  /* Distinct slate-gray for secondary text */
 }
 
 * {

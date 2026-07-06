@@ -33,7 +33,7 @@ async function renderWorkshopsTable() {
   const { data: workshops, error } = await supabase
     .from("workshops")
     .select("id, title, event_date, author: posted_by(full_name)")
-    .order("event_date", { ascending: true });
+    .order("event_date", { ascending: false });
 
   if (error) {
     container.innerHTML = `<div style="padding: 24px; color: var(--status-warn);">Fehler beim Laden: ${error.message}</div>`;
