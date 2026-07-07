@@ -29,8 +29,8 @@
 input {
     padding: 16px 8px;
     border-radius: 8px;
-    border: 1px solid var(--border-color);
-    background: var(--bg-dark);
+    border: 1px solid var(border-primary);
+    background: var(--input-bg);
     color: var(--text-main);
 }
 .btn-submit {

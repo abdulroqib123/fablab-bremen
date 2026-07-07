@@ -60,7 +60,7 @@ async function renderProjectsTable() {
       );
 
       return `
-      <div class="list-row" style="display: flex; justify-content: space-between; align-items: center; padding: 16px 24px; border-bottom: 1px solid var(--border-color);">
+      <div class="list-row" style="display: flex; justify-content: space-between; align-items: center; padding: 16px 24px; border-bottom: 1px solid var(--border-primary);">
         <div style="flex: 2;">
           <h4 style="margin: 0 0 4px 0; color: var(--text-main); font-size: 1.1rem;">${pj.title}</h4>
           <span style="font-size: 0.85rem; color: var(--text-muted);">Termin: ${formattedDate} | Von: ${pj.author?.full_name || "Unbekannt"}</span>

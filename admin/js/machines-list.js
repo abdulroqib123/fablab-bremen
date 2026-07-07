@@ -71,7 +71,7 @@ async function renderMachinesTable() {
 
       return `
         <div class="list-row"
-             style="display: flex; justify-content: space-between; align-items: center; padding: 16px 24px; border-bottom: 1px solid var(--border-color);">
+             style="display: flex; justify-content: space-between; align-items: center; padding: 16px 24px; border-bottom: 1px solid var(--border-primary);">
 
           <div style="flex: 2;">
             <h4 style="margin: 0 0 4px 0; color: var(--text-main); font-size: 1.1rem;">
