@@ -1,0 +1,86 @@
+/* --- MEMBERSHIP / PRICING SECTION --- */
+
+.pricing-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-md);
+  margin: var(--space-lg) 0;
+}
+
+.pricing-card {
+    overflow: hidden;
+  padding: var(--space-lg) var(--space-md);
+  background: var(--bg-main);
+  border: 1px solid var(--border-secondary);
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-sm);
+  position: relative;
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+.pricing-card:hover {
+  border-color: var(--accent-secondary);
+  transform: translateY(-3px);
+}
+
+.pricing-card.featured {
+  border-color: var(--accent-tertiary);
+}
+
+.pricing-card .badge {
+  position: absolute;
+  top: var(--space-xs);
+  right: var(--space-xs);
+}
+
+.pricing-card h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.pricing-amount {
+  font-family: "Fredoka", sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-main);
+  line-height: 1;
+  margin: var(--space-sm) 0;
+}
+
+.pricing-amount span {
+  font-family: var(--font-stack);
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
+.pricing-yearly {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.pricing-note {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: var(--space-sm);
+  font-style: italic;
+}
+
+/* --- Dev-only TODO markers, remove once content is confirmed --- */
+.content-todo {
+  display: block;
+  margin-top: var(--space-xs);
+  padding: var(--space-xs) var(--space-sm);
+  background: #ff910022;
+  border-left: 3px solid var(--status-warn);
+  color: var(--status-warn);
+  font-size: 0.8rem;
+  border-radius: 4px;
+}

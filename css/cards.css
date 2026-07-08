@@ -43,6 +43,7 @@
 }
 
 .card a  {
+  width: fit-content;
   color: var(--text-muted);
   transition: color 0.3s ease;
   text-decoration: none;

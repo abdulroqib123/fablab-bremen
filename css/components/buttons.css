@@ -4,6 +4,8 @@ transform: scale(0.9);
 
 .btn-primary,
 .btn-secondary {
+    display: block;
+
   color: #fff;
   padding: 0.85rem 1.75rem;
   border-radius: 8px;
