@@ -17,7 +17,7 @@
 
 .documents-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: var(--space-md);
   margin-top: var(--space-md);
 }
@@ -63,10 +63,11 @@
   background: transparent;
   border: 1px solid var(--accent-primary);
   color: var(--accent-primary);
+  transition: all 0.4s ease;
 }
 
 .document-card-actions .btn-delete:hover {
-  background: var(--accent-primary);
+  background: var(--status-danger);
   color: #fff;
 }
 </style>
@@ -86,7 +87,7 @@
                 <h1>Dokument hochladen</h1>
                 <p class="subtitle">Lade Dateien hoch und erhalte einen Link, den du in Beiträgen verwenden oder direkt teilen kannst.</p>
             </div>
-            <button type="button" id="uploadDocument" class="action-arrow" style="margin: 0; padding: 10px 16px; background: var(--bg-card); border: 1px solid var(--border-primary); border-radius: 6px; text-decoration: none;">
+            <button type="button" id="uploadDocument" class="action-arrow">
                 ＋ Neues Dokument
             </button>
         </header>

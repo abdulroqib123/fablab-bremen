@@ -34,7 +34,7 @@
 }
 
 .dashboard-container {
-    padding: 24px;
+  padding: 24px;
   max-width: 1000px;
   margin: 0 auto;
 }
@@ -74,6 +74,20 @@
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 16px;
   margin-top: 16px;
+}
+
+.action-arrow {
+  
+  text-wrap: nowrap;
+  margin: 0;
+  padding: 10px 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-primary);
+  border-radius: 6px;
+  text-decoration: none;
+}
+.action-arrow:hover {
+  background: var(--bg-main);
 }
 
 .action-card {
@@ -131,12 +145,13 @@
   font-size: 0.95rem;
   margin: 0;
 }
-input, textarea {
-    padding: 16px 8px;
-    border-radius: 8px;
-    border: 1px solid var(--border-primary);
-    background: var(--input-bg);
-    color: var(--text-main);
+input,
+textarea {
+  padding: 16px 8px;
+  border-radius: 8px;
+  border: 1px solid var(--border-primary);
+  background: var(--input-bg);
+  color: var(--text-main);
 }
 
 /* --- Form Card Component --- */
@@ -149,18 +164,20 @@ input, textarea {
   grid-template-columns: minmax(300px, 400px) 1fr;
   gap: 1.5rem;
 }
-.editor-container, .input-container {
-    height: 100%;
+.editor-container,
+.input-container {
+  height: 100%;
 }
 @media (max-width: 800px) {
-    .admin-form-card {
-  display: flex;
-flex-wrap: wrap;
-}
+  .admin-form-card {
+    display: flex;
+    flex-wrap: wrap;
+  }
 
-.editor-container, .input-container {
+  .editor-container,
+  .input-container {
     width: 100%;
-}
+  }
 }
 
 /* --- Flex Layout Rows --- */
@@ -212,7 +229,6 @@ flex-wrap: wrap;
   margin-top: 1rem;
 }
 
-
 /* --- Quill Rich Text Editor Dark Theme Modifications --- */
 /* Ensure the outer form group block has room to grow */
 .HTML-editor-zone {
@@ -260,11 +276,11 @@ flex-wrap: wrap;
 }
 
 .ql-snow .ql-fill {
-    fill: var(--text-muted) !important;
+  fill: var(--text-muted) !important;
 }
 
 .ql-snow .ql-picker {
-    color: var(--text-muted) !important;
+  color: var(--text-muted) !important;
 }
 
 /* Highlight Quill buttons neatly on user interactions using brand accents */

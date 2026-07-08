@@ -27,6 +27,7 @@
   --status-ready: #00e676;
   --status-busy: #ff3d00;
   --status-warn: #ff9100;
+  --status-danger: #ff0000;
 
   --font-stack:
     -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
