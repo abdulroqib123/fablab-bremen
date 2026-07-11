@@ -1,26 +1,30 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="de">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Website & Verwaltung – Leitfaden | FabLab Bremen</title>
-  <link rel="stylesheet" href="../css/base.css">
-  <link rel="stylesheet" href="../css/main.css">
-  <link rel="stylesheet" href="../css/cards.css">
-  <link rel="stylesheet" href="../css/components/buttons.css">
-  <link rel="stylesheet" href="css/guide.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Website & Verwaltung – Leitfaden | FabLab Bremen</title>
+    <link rel="stylesheet" href="../css/base.css" />
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="stylesheet" href="../css/cards.css" />
+    <link rel="stylesheet" href="../css/components/buttons.css" />
+    <link rel="stylesheet" href="css/guide.css" />
+  </head>
+  <body>
+    <header class="main-header">
+      <div class="header-container">
+        <div class="logo-area">
+          <span class="logo-fab">Fab</span><span class="logo-lab">Lab</span>
+          <span class="logo-sub">Bremen e.V.</span>
+        </div>
 
-  <header class="main-header">
-    <div class="header-container">
-      <div class="logo-area">
-        <span class="logo-fab">Fab</span><span class="logo-lab">Lab</span>
-        <span class="logo-sub">Bremen e.V.</span>
-      </div>
-      
-      <!-- Theme toggle -->
-        <button type="button" aria-label="Toggle between light and dark mode" id="theme-toggle" class="btn-primary btn-circle">
+        <!-- Theme toggle -->
+        <button
+          type="button"
+          aria-label="Toggle between light and dark mode"
+          id="theme-toggle"
+          class="btn-primary btn-circle"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="20"
@@ -41,155 +45,251 @@
             <line x1="21" y1="12" x2="23" y2="12" />
             <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
             <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
-        </svg>
-    </button>
-</div>
-  </header>
-
-  <section class="section">
-    <div class="section-container">
-      <div class="section-header">
-        <h2>Website & Verwaltung – Leitfaden</h2>
+          </svg>
+        </button>
       </div>
-      <p class="card-desc">Ein Leitfaden für den Vorstand und alle, die zukünftig mit der Website arbeiten. Erstellt von Abdulroqib · Stand: Juli 2026.</p>
+    </header>
 
-      <!-- Table of contents -->
-      <nav class="guide-toc card">
-        <ol>
-          <li><a href="#intro">Worum geht es in diesem Dokument?</a></li>
-          <li><a href="#accounts">Wo lebt die Website jetzt?</a></li>
-          <li><a href="#access">Wer braucht welchen Zugang?</a></li>
-          <li><a href="#new-admins">Neue Admins hinzufügen</a></li>
-          <li><a href="#content">Inhalte hinzufügen</a></li>
-          <li><a href="#unavailable">Was, wenn die technische Person nicht verfügbar ist?</a></li>
-          <li><a href="#contact">Ansprechpartner</a></li>
-        </ol>
-      </nav>
-
-      <article id="intro" class="guide-section card">
-        <h3>1. Worum geht es in diesem Dokument?</h3>
-        <p>Die FabLab-Website wurde komplett neu aufgebaut – weg von WordPress, hin zu einer schnelleren, moderneren Lösung. Dieses Dokument erklärt in einfachen Worten:</p>
-        <ul class="focus-list">
-          <li>Wo die Website und ihre Daten jetzt gespeichert sind</li>
-          <li>Wer worauf Zugriff braucht</li>
-          <li>Wie man als Admin Inhalte hinzufügt (Workshops, Projekte, Dokumente)</li>
-          <li>Was zu tun ist, falls die Person, die das technisch betreut, einmal nicht verfügbar ist</li>
-        </ul>
-        <p class="guide-note">Hinweis: Dieses Dokument richtet sich bewusst an Personen ohne technisches Vorwissen. Fachbegriffe werden kurz erklärt, wo nötig.</p>
-      </article>
-
-      <article id="accounts" class="guide-section card">
-        <h3>2. Wo lebt die Website jetzt?</h3>
-        <p>Früher lief alles über WordPress – ein einziger Anbieter. Die neue Website nutzt vier spezialisierte, kostenlose Dienste. Das ist langfristig stabiler und nicht von einer einzelnen Person abhängig – vorausgesetzt, die Konten gehören FabLab Bremen und nicht einer Privatperson.</p>
-
-        <h4>GitHub – der „Bauplan“ der Website</h4>
-        <p class="card-desc">Speichert den gesamten Programmcode. Jede Änderung wird hier gespeichert und kann bei Bedarf rückgängig gemacht werden.</p>
-
-        <h4>Supabase – die „Datenbank“</h4>
-        <p class="card-desc">Speichert alle Inhalte: Workshops, Projekte, Mitgliederinformationen, Dokumente-Verweise. Verwaltet auch die Admin-Anmeldung und Datensicherheit.</p>
-
-        <h4>Cloudinary – der „Dateispeicher“</h4>
-        <p class="card-desc">Hochgeladene Dokumente (PDF, Word, Excel, PowerPoint) werden hier gespeichert. Workshops, Projekte und Maschinen Bilder liegen separat bei Supabase.</p>
-
-        <h4>GitHub Pages – das „Schaufenster“</h4>
-        <p class="card-desc">Hier wird die fertige Website veröffentlicht. Die bestehende Domain (fablab-bremen.org) bleibt erhalten.</p>
-      </article>
-
-      <article id="access" class="guide-section card">
-        <h3>3. Wer braucht welchen Zugang?</h3>
-        <div class="guide-table-wrapper">
-          <table class="guide-table">
-            <thead>
-              <tr>
-                <th>Dienst</th>
-                <th>Wer braucht Zugriff?</th>
-                <th>Wofür?</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>GitHub</td>
-                <td>Technisch verantwortliche Person(en)</td>
-                <td>Code ändern, Website aktualisieren</td>
-              </tr>
-              <tr>
-                <td>Supabase</td>
-                <td>Technisch verantwortliche Person(en)</td>
-                <td>Datenbank, Admin-Konten verwalten</td>
-              </tr>
-              <tr>
-                <td>Cloudinary</td>
-                <td>Technisch verantwortliche Person(en)</td>
-                <td>Datei-Speicher verwalten</td>
-              </tr>
-              <tr>
-                <td>Admin-Panel</td>
-                <td>Jeder, der Inhalte postet</td>
-                <td>Workshops, Projekte, Dokumente hinzufügen</td>
-              </tr>
-            </tbody>
-          </table>
+    <section class="section">
+      <div class="section-container">
+        <div class="section-header">
+          <h2>Website & Verwaltung – Leitfaden</h2>
         </div>
-        <p class="guide-note">Wichtig: Alle vier Konten sollten auf eine FabLab-E-Mail-Adresse registriert sein (z.B. info@fablab-bremen.org), nicht auf eine private E-Mail-Adresse. So bleibt der Zugriff beim Verein, egal wer gerade technisch verantwortlich ist.</p>
-      </article>
+        <p class="card-desc">
+          Ein Leitfaden für den Vorstand und alle, die zukünftig mit der Website
+          arbeiten. Erstellt von Abdulroqib · Stand: Juli 2026.
+        </p>
 
-      <article id="new-admins" class="guide-section card">
-        <h3>4. Neue Admins hinzufügen</h3>
-        <p>Um jemand Neuen Zugriff auf das Admin-Panel zu geben:</p>
-        <ol class="guide-steps">
-          <li>Eine Person mit Zugriff auf das Supabase-Dashboard öffnet die Nutzerverwaltung</li>
-          <li>Dort wird die E-Mail-Adresse und das Passwort der neuen Person manuell hinzugefügt</li>
-          <li>Das System trägt die Person automatisch in die Admin-Liste ein</li>
-          <li>Die neue Person kann sich danach im Admin-Panel einloggen</li>
-        </ol>
-      </article>
+        <!-- Table of contents -->
+        <nav class="guide-toc card">
+          <ol>
+            <li><a href="#intro">Worum geht es in diesem Dokument?</a></li>
+            <li><a href="#accounts">Wo lebt die Website jetzt?</a></li>
+            <li><a href="#access">Wer braucht welchen Zugang?</a></li>
+            <li><a href="#new-admins">Neue Admins hinzufügen</a></li>
+            <li><a href="#content">Inhalte hinzufügen</a></li>
+            <li>
+              <a href="#unavailable"
+                >Was, wenn die technische Person nicht verfügbar ist?</a
+              >
+            </li>
+            <li><a href="#contact">Ansprechpartner</a></li>
+          </ol>
+        </nav>
 
-      <article id="content" class="guide-section card">
-        <h3>5. Inhalte hinzufügen – die Grundlagen</h3>
+        <article id="intro" class="guide-section card">
+          <h3>1. Worum geht es in diesem Dokument?</h3>
+          <p>
+            Die FabLab-Website wurde komplett neu aufgebaut – weg von WordPress,
+            hin zu einer schnelleren, moderneren Lösung. Dieses Dokument erklärt
+            in einfachen Worten:
+          </p>
+          <ul class="focus-list">
+            <li>Wo die Website und ihre Daten jetzt gespeichert sind</li>
+            <li>Wer worauf Zugriff braucht</li>
+            <li>
+              Wie man als Admin Inhalte hinzufügt (Workshops, Projekte,
+              Dokumente)
+            </li>
+            <li>
+              Was zu tun ist, falls die Person, die das technisch betreut,
+              einmal nicht verfügbar ist
+            </li>
+          </ul>
+          <p class="guide-note">
+            Hinweis: Dieses Dokument richtet sich bewusst an Personen ohne
+            technisches Vorwissen. Fachbegriffe werden kurz erklärt, wo nötig.
+          </p>
+        </article>
 
-        <h4>Workshops und Projekte posten</h4>
-        <p class="card-desc">Im Admin-Panel gibt es Formulare zum Hinzufügen von Workshops, Projekten und Maschinen. Titel, Beschreibung und Bilder werden dort eingetragen – die Website aktualisiert sich automatisch.</p>
+        <article id="accounts" class="guide-section card">
+          <h3>2. Wo lebt die Website jetzt?</h3>
+          <p>
+            Früher lief alles über WordPress – ein einziger Anbieter. Die neue
+            Website nutzt vier spezialisierte, kostenlose Dienste. Das ist
+            langfristig stabiler und nicht von einer einzelnen Person abhängig –
+            vorausgesetzt, die Konten gehören FabLab Bremen und nicht einer
+            Privatperson.
+          </p>
 
-        <h4>Dokumente hochladen</h4>
-        <p>Unter „Dokument hochladen“ im Admin-Panel:</p>
-        <ol class="guide-steps">
-          <li>Auf „+ Neues Dokument“ klicken</li>
-          <li>Datei auswählen (PDF, Word, Excel, PowerPoint oder Bild)</li>
-          <li>Nach dem Hochladen erscheint ein Link</li>
-          <li>Dieser Link kann in einen Workshop- oder Projekt-Beitrag eingefügt oder direkt geteilt werden</li>
-        </ol>
-        <p class="guide-note">Erlaubte Dateitypen: PDF, Word, Excel, PowerPoint sowie JPEG-, PNG- und WebP-Bilder. Maximale Dateigröße: 25 MB pro Datei.</p>
+          <h4>GitHub – der „Bauplan“ der Website</h4>
+          <p class="card-desc">
+            Speichert den gesamten Programmcode. Jede Änderung wird hier
+            gespeichert und kann bei Bedarf rückgängig gemacht werden.
+          </p>
 
-        <h4>Ein Dokument löschen</h4>
-        <p class="card-desc">Beim Löschen erscheint eine Warnung, da der Link möglicherweise noch in einem Beitrag verwendet wird. Nach dem Löschen ist der Link dauerhaft nicht mehr erreichbar – vor dem Bestätigen also sicherstellen, dass die Datei wirklich nicht mehr gebraucht wird.</p>
-      </article>
+          <h4>Supabase – die „Datenbank“</h4>
+          <p class="card-desc">
+            Speichert alle Inhalte: Workshops, Projekte,
+            Mitgliederinformationen, Dokumente-Verweise. Verwaltet auch die
+            Admin-Anmeldung und Datensicherheit.
+          </p>
 
-      <article id="unavailable" class="guide-section card">
-        <h3>6. Was, wenn die technische Person nicht verfügbar ist?</h3>
-        <p>Das ist eine wichtige Frage, die sich der Vorstand frühzeitig stellen sollte – nicht erst, wenn es dringend wird.</p>
-        <ul class="focus-list">
-          <li>Solange alle Konten (<a href="#accounts">Abschnitt 2</a>) auf eine FabLab-E-Mail-Adresse laufen, kann jede Person mit Zugriff auf dieses E-Mail-Postfach die Passwörter zurücksetzen</li>
-          <li>Der Programmcode liegt vollständig auf GitHub und kann von jeder Person mit den nötigen Kenntnissen weitergeführt werden</li>
-          <li>Es empfiehlt sich, mindestens zwei Personen mit technischem Verständnis zu benennen, die im Ernstfall einspringen können</li>
-        </ul>
-        <p class="guide-note">Diese Website wird derzeit ehrenamtlich von einer Einzelperson betreut. Das ist auf Dauer ein Risiko für den Verein – nicht, weil etwas falsch gemacht wurde, sondern weil jedes Projekt, das nur eine Person versteht, verletzlich ist. Es lohnt sich, langfristig eine zweite Person einzuarbeiten.</p>
-      </article>
+          <h4>Cloudinary – der „Dateispeicher“</h4>
+          <p class="card-desc">
+            Hochgeladene Dokumente (PDF, Word, Excel, PowerPoint) werden hier
+            gespeichert. Workshops, Projekte und Maschinen Bilder liegen separat
+            bei Supabase.
+          </p>
 
-      <article id="contact" class="guide-section card">
-        <h3>7. Ansprechpartner</h3>
-        <p class="card-desc">Für technische Fragen: <a href="mailto:abdulroqeeboladipo@gmail.com">abdulroqeeboladipo@gmail.com</a></p>
-        <p class="card-desc">Für inhaltliche Fragen (Workshops, Projekte, Mitgliedschaft): <a href="mailto:info@fablab-bremen.org">Vorstand FabLab Bremen e.V.</a></p>
-      </article>
+          <h4>GitHub Pages – das „Schaufenster“</h4>
+          <p class="card-desc">
+            Hier wird die fertige Website veröffentlicht. Die bestehende Domain
+            (fablab-bremen.org) bleibt erhalten.
+          </p>
+        </article>
 
-    </div>
-  </section>
+        <article id="access" class="guide-section card">
+          <h3>3. Wer braucht welchen Zugang?</h3>
+          <div class="guide-table-wrapper">
+            <table class="guide-table">
+              <thead>
+                <tr>
+                  <th>Dienst</th>
+                  <th>Wer braucht Zugriff?</th>
+                  <th>Wofür?</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>GitHub</td>
+                  <td>Technisch verantwortliche Person(en)</td>
+                  <td>Code ändern, Website aktualisieren</td>
+                </tr>
+                <tr>
+                  <td>Supabase</td>
+                  <td>Technisch verantwortliche Person(en)</td>
+                  <td>Datenbank, Admin-Konten verwalten</td>
+                </tr>
+                <tr>
+                  <td>Cloudinary</td>
+                  <td>Technisch verantwortliche Person(en)</td>
+                  <td>Datei-Speicher verwalten</td>
+                </tr>
+                <tr>
+                  <td>Admin-Panel</td>
+                  <td>Jeder, der Inhalte postet</td>
+                  <td>Workshops, Projekte, Dokumente hinzufügen</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="guide-note">
+            Wichtig: Alle vier Konten sollten auf eine FabLab-E-Mail-Adresse
+            registriert sein (z.B. info@fablab-bremen.org), nicht auf eine
+            private E-Mail-Adresse. So bleibt der Zugriff beim Verein, egal wer
+            gerade technisch verantwortlich ist.
+          </p>
+        </article>
 
-  <footer class="footer">
-    <div class="footer-inner">
-      <p>&copy; All rights reserved | FabLab</p>
-    </div>
-  </footer>
+        <article id="new-admins" class="guide-section card">
+          <h3>4. Neue Admins hinzufügen</h3>
+          <p>Um jemand Neuen Zugriff auf das Admin-Panel zu geben:</p>
+          <ol class="guide-steps">
+            <li>
+              Eine Person mit Zugriff auf das Supabase-Dashboard öffnet die
+              Nutzerverwaltung
+            </li>
+            <li>
+              Dort wird die E-Mail-Adresse und das Passwort der neuen Person
+              manuell hinzugefügt
+            </li>
+            <li>
+              Das System trägt die Person automatisch in die Admin-Liste ein
+            </li>
+            <li>Die neue Person kann sich danach im Admin-Panel einloggen</li>
+          </ol>
+        </article>
 
-  <script type="module" src="../js/app.js"></script>
-</body>
+        <article id="content" class="guide-section card">
+          <h3>5. Inhalte hinzufügen – die Grundlagen</h3>
+
+          <h4>Workshops und Projekte posten</h4>
+          <p class="card-desc">
+            Im Admin-Panel gibt es Formulare zum Hinzufügen von Workshops,
+            Projekten und Maschinen. Titel, Beschreibung und Bilder werden dort
+            eingetragen – die Website aktualisiert sich automatisch.
+          </p>
+
+          <h4>Dokumente hochladen</h4>
+          <p>Unter „Dokument hochladen“ im Admin-Panel:</p>
+          <ol class="guide-steps">
+            <li>Auf „+ Neues Dokument“ klicken</li>
+            <li>Datei auswählen (PDF, Word, Excel, PowerPoint oder Bild)</li>
+            <li>Nach dem Hochladen erscheint ein Link</li>
+            <li>
+              Dieser Link kann in einen Workshop- oder Projekt-Beitrag eingefügt
+              oder direkt geteilt werden
+            </li>
+          </ol>
+          <p class="guide-note">
+            Erlaubte Dateitypen: PDF, Word, Excel, PowerPoint sowie JPEG-, PNG-
+            und WebP-Bilder. Maximale Dateigröße: 25 MB pro Datei.
+          </p>
+
+          <h4>Ein Dokument löschen</h4>
+          <p class="card-desc">
+            Beim Löschen erscheint eine Warnung, da der Link möglicherweise noch
+            in einem Beitrag verwendet wird. Nach dem Löschen ist der Link
+            dauerhaft nicht mehr erreichbar – vor dem Bestätigen also
+            sicherstellen, dass die Datei wirklich nicht mehr gebraucht wird.
+          </p>
+        </article>
+
+        <article id="unavailable" class="guide-section card">
+          <h3>6. Was, wenn die technische Person nicht verfügbar ist?</h3>
+          <p>
+            Das ist eine wichtige Frage, die sich der Vorstand frühzeitig
+            stellen sollte – nicht erst, wenn es dringend wird.
+          </p>
+          <ul class="focus-list">
+            <li>
+              Solange alle Konten (<a href="#accounts">Abschnitt 2</a>) auf eine
+              FabLab-E-Mail-Adresse laufen, kann jede Person mit Zugriff auf
+              dieses E-Mail-Postfach die Passwörter zurücksetzen
+            </li>
+            <li>
+              Der Programmcode liegt vollständig auf GitHub und kann von jeder
+              Person mit den nötigen Kenntnissen weitergeführt werden
+            </li>
+            <li>
+              Es empfiehlt sich, mindestens zwei Personen mit technischem
+              Verständnis zu benennen, die im Ernstfall einspringen können
+            </li>
+          </ul>
+          <p class="guide-note">
+            Diese Website wird derzeit ehrenamtlich von einer Einzelperson
+            betreut. Das ist auf Dauer ein Risiko für den Verein – nicht, weil
+            etwas falsch gemacht wurde, sondern weil jedes Projekt, das nur eine
+            Person versteht, verletzlich ist. Es lohnt sich, langfristig eine
+            zweite Person einzuarbeiten.
+          </p>
+        </article>
+
+        <article id="contact" class="guide-section card">
+          <h3>7. Ansprechpartner</h3>
+          <p class="card-desc">
+            Für technische Fragen:
+            <a href="mailto:abdulroqeeboladipo@gmail.com"
+              >abdulroqeeboladipo@gmail.com</a
+            >
+          </p>
+          <p class="card-desc">
+            Für inhaltliche Fragen (Workshops, Projekte, Mitgliedschaft):
+            <a href="mailto:info@fablab-bremen.org"
+              >Vorstand FabLab Bremen e.V.</a
+            >
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <p>&copy; All rights reserved | FabLab</p>
+      </div>
+    </footer>
+
+    <script type="module" src="../js/app.js"></script>
+  </body>
 </html>
