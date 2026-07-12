@@ -1,6 +1,13 @@
 /* --- BLOCK EDITOR --- */
-
+#block-editor-root {
+  position: relative;
+max-height: 650px;
+overflow: auto;
+}
 .block-editor-toolbar {
+  position: sticky;
+  top: 0;
+  background: var(--bg-card);
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-sm);
@@ -216,6 +223,35 @@
 }
 
 .block-carousel-slide-editor input[type="text"] {
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--border-primary);
+  background: var(--input-bg);
+  color: var(--input-color);
+  font-size: 0.9rem;
+}
+
+/* Quote block */
+.block-quote-editor {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.block-quote-text {
+  min-height: 80px;
+  padding: var(--space-sm);
+  border-left: 3px solid var(--accent-tertiary);
+  border-radius: 4px;
+  background: var(--bg-card);
+  color: var(--text-main);
+  font-size: 1.05rem;
+  font-style: italic;
+  line-height: 1.6;
+  resize: vertical;
+}
+
+.block-quote-attribution {
   padding: 8px 10px;
   border-radius: 6px;
   border: 1px solid var(--border-primary);

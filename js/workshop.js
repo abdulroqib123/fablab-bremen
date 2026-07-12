@@ -1,5 +1,6 @@
 import { getWorkshopById } from "./data/workshopsDb.js";
 import { createTextPreview } from "./utils/textPreview.js";
+import { renderContent, getPreviewSource } from "./content-compat.js";
 
 const params = new URLSearchParams(window.location.search);
 const workshopId = params.get("ws");
@@ -28,7 +29,7 @@ async function initWorkshop() {
     `${workshopData.title} | FabLab`;
 
   workshopName.textContent = workshopData.title;
-  workshopContent.innerHTML = workshopData.content;
+  workshopContent.innerHTML = renderContent(workshopData.content);
 
   const imgs = document.querySelectorAll("#workshopContent img");
   imgs.forEach((img) => {

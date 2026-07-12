@@ -1,12 +1,13 @@
 import { supabase } from "../../js/supabase.js";
 import { convertToWebP } from "../../js/utils/fileToWebp.js";
+import { createBlockEditor } from "./block-editor.js";
+import { contentToBlocks } from "../../js/content-compat.js";
 
-let quill;
+let blockEditor; // replaces the old `editor` (GrapesJS) / `quill` variable
 let workshopId = null;
 let currentAdminName = "";
 let authorId = null;
 
-// Using native ES module top-level logic instead of wrapping in DOMContentLoaded
 initWorkshopPage();
 
 async function initWorkshopPage() {
@@ -27,43 +28,25 @@ async function initWorkshopPage() {
     .eq("id", session.user.id)
     .single();
 
-  authorId = adminProfile.id;
+  authorId = adminProfile?.id || session.user.id;
   currentAdminName = adminProfile ? adminProfile.full_name : session.user.email;
   document.getElementById("admin-name").textContent = currentAdminName;
 
-  // 3. Initialize Quill Rich Text Engine with Custom Image Interceptor
-  quill = new Quill("#editor-container", {
-    theme: "snow",
-    placeholder: "Legen Sie ein neuen Workshop an...",
-    modules: {
-      toolbar: {
-        container: [
-          [{ header: [1, 2, 3, 4, 5, 6, false] }],
-          ["bold", "italic", "underline", "link"],
-          [
-            { list: "ordered" },
-            { list: "bullet" },
-            { list: "check" },
-            { align: [] },
-          ],
-          ["image"],
-          ["code-block"],
-        ],
-        handlers: {
-          // Directs image icon clicks through our storage upload system instead of Base64
-          image: handleQuillImageUpload,
-        },
-      },
+  // 3. Initialize the custom block editor 
+  blockEditor = createBlockEditor(
+    document.getElementById("block-editor-root"),
+    {
+      onUploadImage: uploadFileToSupabase, 
+      initialBlocks: [],
     },
-  });
+  );
 
-  // 4. URL Routing Check: Are we Creating or Editing?
+  // 4. URL Routing Check
   const urlParams = new URLSearchParams(window.location.search);
   workshopId = urlParams.get("id");
 
   if (workshopId) {
     document.getElementById("page-title").textContent = "Workshop bearbeiten";
-    document.getElementById("submit-btn").textContent = "Änderungen保存"; // Changes label text to Save
     document.getElementById("submit-btn").textContent = "Änderungen speichern";
     loadExistingWorkshopData(workshopId);
   } else {
@@ -76,30 +59,26 @@ async function initWorkshopPage() {
     .getElementById("workshop-form")
     .addEventListener("submit", handleFormSubmit);
 
-  // 6. Bind Quick Converters for the 3 normal Image URL input fields
+  // 6. Bind Quick Converters for the 3 Project Image URL input fields
   setupQuickImageConverters();
 }
 
 /**
- * Shared Core Utility API Function
- * Handles streaming file assets straight up into your public bucket
+ * Shared Core Utility API Function — unchanged from the Quill version.
+ * Handles streaming file assets straight up into your public bucket.
  */
 async function uploadFileToSupabase(file) {
-    // Convert to WebP first
   const webpBlob = await convertToWebP(file);
 
-    // Preserve original filename (without extension)
-    const baseName = file.name.replace(/\.[^/.]+$/, "");
-
-      // Create final WebP filename
+  const baseName = file.name.replace(/\.[^/.]+$/, "");
   const fileName = `${baseName}-${Date.now()}.webp`;
   const filePath = `workshops/${fileName}`;
 
-   const { error } = await supabase.storage
-     .from("workshop-media")
-     .upload(filePath, webpBlob, {
-       contentType: "image/webp",
-     });
+  const { error } = await supabase.storage
+    .from("workshop-media")
+    .upload(filePath, webpBlob, {
+      contentType: "image/webp",
+    });
 
   if (error) throw error;
 
@@ -111,7 +90,8 @@ async function uploadFileToSupabase(file) {
 }
 
 /**
- * Automates Converting Files to Links right inside the standard text inputs
+ * Automates Converting Files to Links right inside the workshop text inputs
+ * — unchanged, these 3 URL fields are separate from the block editor content.
  */
 function setupQuickImageConverters() {
   document.querySelectorAll(".quick-converter").forEach((uploader) => {
@@ -139,33 +119,6 @@ function setupQuickImageConverters() {
   });
 }
 
-/**
- * Intercepts Quill Toolbar Uploads to keep the text blocks light and clean
- */
-async function handleQuillImageUpload() {
-  const input = document.createElement("input");
-  input.setAttribute("type", "file");
-  input.setAttribute("accept", "image/*");
-  input.click();
-
-  input.onchange = async () => {
-    const file = input.files[0];
-    if (!file) return;
-
-    try {
-      const publicUrl = await uploadFileToSupabase(file);
-
-      // Target text insert point index and paste the string URL tag element directly
-      const range = quill.getSelection(true);
-      quill.insertEmbed(range.index, "image", publicUrl);
-      quill.setSelection(range.index + 1);
-    } catch (err) {
-      console.error("Quill media sync error:", err);
-      alert("Editor-Bild Upload fehlgeschlagen.");
-    }
-  };
-}
-
 async function loadExistingWorkshopData(id) {
   const { data: ws, error } = await supabase
     .from("workshops")
@@ -179,16 +132,13 @@ async function loadExistingWorkshopData(id) {
     return;
   }
 
-  // Re-populate standard field entries
   document.getElementById("ws-title").value = ws.title || "";
-  document.getElementById("ws-price").value = ws.price || "";
-  document.getElementById("ws-reg-link").value = ws.registration_link || "";
+  document.getElementById("ws-price").value = String(ws.price);
 
   if (ws.event_date) {
     document.getElementById("ws-date").value = ws.event_date.substring(0, 16);
   }
 
-  // Distribute image URLs back to inputs
   if (ws.image_urls && Array.isArray(ws.image_urls)) {
     const imgInputs = document.querySelectorAll(".ws-img-input");
     ws.image_urls.forEach((url, index) => {
@@ -196,8 +146,9 @@ async function loadExistingWorkshopData(id) {
     });
   }
 
-  // Hydrate Quill rich text content
-  quill.clipboard.dangerouslyPasteHTML(ws.content || "");
+  // Handles both legacy Quill HTML (wrapped as one text block) and new block JSON
+  blockEditor.setBlocks(contentToBlocks(ws.content));
+
   document.getElementById("audit-badge").textContent =
     `Zuletzt aktualisiert von: ${ws.author.full_name}`;
 }
@@ -210,32 +161,28 @@ async function handleFormSubmit(e) {
     .map((input) => input.value.trim())
     .filter((url) => url !== "");
 
-  const workshopPayload = {
-    title: document.getElementById("ws-title").value.trim(),
-    price: document.getElementById("ws-price").value.trim() || "Kostenlos",
+
+const workshopPayload = {
+  title: document.getElementById("ws-title").value.trim(),
+  price: document.getElementById("ws-price").value.trim() || "Kostenlos",
     event_date: new Date(
       document.getElementById("ws-date").value,
     ).toISOString(),
-    registration_link: document.getElementById("ws-reg-link").value.trim(),
     image_urls: imageUrlsArray,
     posted_by: authorId,
-    content: quill.getSemanticHTML(), // Captures raw valid HTML blocks cleanly with our new tiny img URLs embedded
+    content: JSON.stringify(blockEditor.getBlocks()), // stored as a JSON string in the same text column — no schema change needed
   };
 
   let responseError;
 
   if (workshopId) {
-    // Mode: Update existing database row
     const { error } = await supabase
       .from("workshops")
       .update(workshopPayload)
       .eq("id", workshopId);
     responseError = error;
   } else {
-    // Mode: Insert fresh database row
-    const { error } = await supabase
-      .from("workshops")
-      .insert([workshopPayload]);
+    const { error } = await supabase.from("workshops").insert([workshopPayload]);
     responseError = error;
   }
 

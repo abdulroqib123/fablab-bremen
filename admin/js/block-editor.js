@@ -10,6 +10,7 @@
 //   { id, type: 'image', url: '' },
 //   { id, type: 'image-pair', left: '', right: '' },
 //   { id, type: 'carousel', slides: [{ url, caption }, ...] },
+//   { id, type: 'quote', text: '', attribution: '' },
 // ]
 
 export function createBlockEditor(
@@ -66,6 +67,7 @@ export function createBlockEditor(
   }
 
   function defaultBlockFor(type) {
+    document.getElementById("pageBottom") ? location.href = "#pageBottom" : "";
     switch (type) {
       case "text":
         return { type: "text", content: "" };
@@ -75,6 +77,8 @@ export function createBlockEditor(
         return { type: "image-pair", left: "", right: "" };
       case "carousel":
         return { type: "carousel", slides: [{ url: "", caption: "" }] };
+      case "quote":
+        return { type: "quote", text: "", attribution: "" };
     }
   }
 
@@ -121,6 +125,7 @@ export function createBlockEditor(
         image: "Bild",
         "image-pair": "Bilder nebeneinander",
         carousel: "Karussell",
+        quote: "Zitat",
       }[type] || type
     );
   }
@@ -130,6 +135,7 @@ export function createBlockEditor(
     if (block.type === "image") return buildImageSlot(block, "url");
     if (block.type === "image-pair") return buildImagePairBlock(block);
     if (block.type === "carousel") return buildCarouselBlock(block);
+    if (block.type === "quote") return buildQuoteBlock(block);
     const fallback = document.createElement("div");
     fallback.textContent = "Unbekannter Block-Typ";
     return fallback;
@@ -226,6 +232,7 @@ export function createBlockEditor(
         savedRange = sel.getRangeAt(0);
       }
     }
+
     function restoreSelection() {
       if (!savedRange) return;
       const sel = window.getSelection();
@@ -411,6 +418,32 @@ export function createBlockEditor(
     return wrap;
   }
 
+  // Quote block: main quote text + optional attribution (source/name)
+  function buildQuoteBlock(block) {
+    const wrapper = document.createElement("div");
+    wrapper.className = "block-quote-editor";
+
+    const textInput = document.createElement("textarea");
+    textInput.className = "block-quote-text";
+    textInput.placeholder = "Zitat eingeben …";
+    textInput.value = block.text || "";
+    textInput.addEventListener("input", () => (block.text = textInput.value));
+
+    const attributionInput = document.createElement("input");
+    attributionInput.type = "text";
+    attributionInput.className = "block-quote-attribution";
+    attributionInput.placeholder = "Quelle / Name (optional)";
+    attributionInput.value = block.attribution || "";
+    attributionInput.addEventListener(
+      "input",
+      () => (block.attribution = attributionInput.value),
+    );
+
+    wrapper.appendChild(textInput);
+    wrapper.appendChild(attributionInput);
+    return wrapper;
+  }
+
   function triggerUpload(onDone) {
     const input = document.createElement("input");
     input.type = "file";
@@ -437,6 +470,7 @@ export function createBlockEditor(
     ["image", "+ Bild hinzufügen"],
     ["image-pair", "+ Bilder nebeneinander"],
     ["carousel", "+ Karussell hinzufügen"],
+    ["quote", "+ Zitat hinzufügen"],
   ].forEach(([type, label]) => {
     const btn = document.createElement("button");
     btn.type = "button";
@@ -454,6 +488,11 @@ export function createBlockEditor(
   container.appendChild(listEl);
 
   setBlocks(initialBlocks);
+
+  // Default starting block for a brand-new post. Harmless for edit mode too —
+  // loadExistingWorkshopData calls setBlocks() again afterward, which fully
+  // clears and rebuilds state, so this default gets replaced, not duplicated.
+  addBlock("text");
 
   return { getBlocks, setBlocks };
 }

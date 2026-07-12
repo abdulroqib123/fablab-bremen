@@ -1,6 +1,7 @@
 import { supabase } from "../../js/supabase.js";
 import { convertToWebP } from "../../js/utils/fileToWebp.js";
 import { createBlockEditor } from "./block-editor.js";
+import { contentToBlocks } from "../../js/content-compat.js";
 
 let blockEditor; // replaces the old `editor` (GrapesJS) / `quill` variable
 let projectId = null;
@@ -47,7 +48,7 @@ async function initProjectPage() {
   if (projectId) {
     document.getElementById("page-title").textContent = "Projekt bearbeiten";
     document.getElementById("submit-btn").textContent = "Änderungen speichern";
-    loadExistingWorkshopData(projectId);
+    loadExistingProjectData(projectId);
   } else {
     document.getElementById("audit-badge").textContent =
       `Erstellt von: ${currentAdminName}`;
@@ -118,7 +119,7 @@ function setupQuickImageConverters() {
   });
 }
 
-async function loadExistingWorkshopData(id) {
+async function loadExistingProjectData(id) {
   const { data: pj, error } = await supabase
     .from("projects")
     .select("*, author: posted_by(full_name)")
@@ -145,8 +146,8 @@ async function loadExistingWorkshopData(id) {
     });
   }
 
-  // content is now a JSON array of blocks, not an HTML/CSS blob
-  blockEditor.setBlocks(pj.content || []);
+  // Handles both legacy Quill HTML (wrapped as one text block) and new block JSON
+  blockEditor.setBlocks(contentToBlocks(pj.content));
 
   document.getElementById("audit-badge").textContent =
     `Zuletzt aktualisiert von: ${pj.author.full_name}`;
@@ -163,7 +164,7 @@ async function handleFormSubmit(e) {
   const isMintstepsBool =
     document.getElementById("pj-mintstep").value === "true";
 
-  const workshopPayload = {
+  const projectPayload = {
     title: document.getElementById("pj-title").value.trim(),
     is_mintsteps: isMintstepsBool,
     event_date: new Date(
@@ -171,7 +172,7 @@ async function handleFormSubmit(e) {
     ).toISOString(),
     image_urls: imageUrlsArray,
     posted_by: authorId,
-    content: blockEditor.getBlocks(), // JSON array, stored directly in a jsonb column
+    content: JSON.stringify(blockEditor.getBlocks()), // stored as a JSON string in the same text column — no schema change needed
   };
 
   let responseError;
@@ -179,11 +180,11 @@ async function handleFormSubmit(e) {
   if (projectId) {
     const { error } = await supabase
       .from("projects")
-      .update(workshopPayload)
+      .update(projectPayload)
       .eq("id", projectId);
     responseError = error;
   } else {
-    const { error } = await supabase.from("projects").insert([workshopPayload]);
+    const { error } = await supabase.from("projects").insert([projectPayload]);
     responseError = error;
   }
 

@@ -1,4 +1,5 @@
 import { createTextPreview } from "../utils/textPreview.js";
+import { getPreviewSource } from "../content-compat.js";
 
 export function workshopCard(workshops) {
   const fragment = document.createDocumentFragment();
@@ -31,7 +32,10 @@ export function workshopCard(workshops) {
 
     const cardDesc = document.createElement("p");
     cardDesc.classList.add("card-desc");
-    cardDesc.textContent = createTextPreview(ws.content || "", 150);
+    cardDesc.textContent = createTextPreview(
+      getPreviewSource(ws.content) || "",
+      150,
+    );
     cardBottom.appendChild(cardDesc);
 
     const cardLink = document.createElement("a");

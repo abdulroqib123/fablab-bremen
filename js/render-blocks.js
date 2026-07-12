@@ -27,6 +27,14 @@ function renderBlock(block) {
     case "carousel":
       return renderCarousel(block);
 
+    case "quote":
+      return block.text
+        ? `<blockquote class="content-quote-block">
+            <p>${escapeHtml(block.text)}</p>
+            ${block.attribution ? `<footer>${escapeHtml(block.attribution)}</footer>` : ""}
+          </blockquote>`
+        : "";
+
     default:
       return "";
   }
