@@ -1,5 +1,6 @@
 import { getMachineById } from "./data/machinesDb.js";
 import { createTextPreview } from "./utils/textPreview.js";
+import { renderContent, getPreviewSource } from "./content-compat.js";
 
 const params = new URLSearchParams(window.location.search);
 const machineId = params.get("mc");
@@ -28,7 +29,7 @@ if(!machineId) return window.location.href = "maschinen.html";
                   `${machineData.name} | FabLab`;  
 
     machineName.textContent = machineData.name;
-    machineContent.innerHTML = machineData.content;
+    machineContent.innerHTML = renderContent(machineData.content);
 
     const imgs = document.querySelectorAll("#machineContent img");
     imgs.forEach((img) => {
